@@ -1,0 +1,66 @@
+<div class="container">
+
+  <br>
+  
+  <div class="row text-center">
+    <img src="../public/assets/img/burger.jpeg" style="width:200px;height:200px;">
+  </div>
+
+  <!-- keep everything in line -->
+  <div class="row text-center" id="top-bar">
+    <h1>EAT-DA-BURGER!</h1>
+  </div>
+  
+  <br><br>
+
+  <div class="row">
+    <br>
+    <div class="col-xs-6 text-center" class="task">
+        <!-- looping through burger data -->
+        {{#each burger_data}}
+            {{#unless this.devoured}}
+          <div class="col-xs-9 text-center">
+            <!-- display the id (number) and burger_name of each burger on html -->
+            <pre>{{this.id}}. {{this.burger_name}}</pre>
+          </div>
+      <div class="col-xs-3 text-center">
+        <!-- creates button that gives button id and burger name back to server, unless devoured is TRUE -->
+        <form method="POST" action="/burgers/update?_method=PUT" class="button-size">
+          <input type="hidden" name="burger_id" type="text" value={{this.id}}>
+          <button type="submit" class="btn btn-default" style="background-color: #F0E68C;">DEVOUR IT</button>
+        </form>
+      </div>
+      {{/unless}}
+      {{/each}}
+    </div>
+    
+    <!-- makes elements "devoured" readonly and inaccessible/faded -->
+    <div class="col-xs-6 text-center" class="task" id="burgers_eaten">
+      {{#each burger_data}}
+        {{#if this.devoured}}
+          <input class="form-control" type="text" placeholder="{{this.id}}. {{this.burger_name}}" readonly>
+        {{/if}}
+      {{/each}}
+    </div>
+  </div>
+
+  <br><br>
+  
+  <!-- contains form input, and submit button -->
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4 text-center enter-section">
+      <form action="/burgers/create" method="POST">
+        <input type="text" name="burger_name" class="form-control" value="" id="enter-new-burger">
+        <br>
+        <div class="row">
+          <div class="col-md-4 col-md-offset-4">
+            <button type="submit" class="btn btn-primary" id="enter-new-burger-button">SUBMIT</button>
+          </div>
+        </div>
+      </form>
+      <br>
+      <p>What kind of burger would you like to eat?</p>
+    </div>
+  </div>
+
+</div>
